@@ -11,7 +11,7 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install . -vv"
   entry_points:
     - max-rect = maxrect.scripts.cli:maxrect
@@ -19,16 +19,18 @@ build:
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - click
     - numpy
     - shapely
     - cvxpy
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - maxrect
   commands:
